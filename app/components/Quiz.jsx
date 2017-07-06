@@ -4,7 +4,6 @@ import { FlatButton, RaisedButton, TextField } from 'material-ui';
 import { Card, CardHeader } from 'material-ui/Card';
 import Statements from './Statements.jsx';
 import Version from './Version.jsx';
-import { fetchStatements } from '../reducers/reducer.js';
 import axios from 'axios';
 
 class Quiz extends React.Component {
@@ -28,17 +27,12 @@ class Quiz extends React.Component {
   componentDidMount() {
     axios.get('/api/statements')
       .then(res => {
-        console.log('res data', res.data)
         this.setState({ statements: res.data });
       });
   }
 
   handleStarChange (nextVal, prevVal, name) {
-    if (name === 'statement5') {
-      this.setState({[name]: nextVal, button: false});
-    } else {
-      this.setState({ [name]: nextVal });
-    }
+    (name === 'statement5') ? this.setState({[name]: nextVal, button: false}) : this.setState({ [name]: nextVal });
   }
 
   handleFeedbackChange (e) {
@@ -50,7 +44,6 @@ class Quiz extends React.Component {
   }
 
   render (){
-    console.log(this.state)
     return (
       <div className="quiz-body">
         <div className="left-menu" >
@@ -60,7 +53,6 @@ class Quiz extends React.Component {
 
         </div>
         <div className="quiz" >
-
           <div className="rating-header">
             <Version version={this.state.version} />
           </div>
@@ -80,10 +72,7 @@ class Quiz extends React.Component {
                 title="Anything to add?"
                 titleStyle={{color: '#fff', fontSize: 'x-large', fontFamily: 'Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif'}}
               />
-              <div className="circle">
-              Extra Feedback Helps
-              </div>
-
+              <div className="circle">Extra Feedback Helps</div>
               <TextField
               hintText="Please add additional feedback here."
               multiLine={true}
@@ -102,22 +91,4 @@ class Quiz extends React.Component {
   }
 }
 
-/* ----- CONTAINER ----- */
-
-import {connect} from 'react-redux';
-
-const mapStateToProps = (state) => {
-  return {
-    statements: state.statements
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchStatements: () => {
-      dispatch(fetchStatements());
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Quiz);
+export default Quiz;
