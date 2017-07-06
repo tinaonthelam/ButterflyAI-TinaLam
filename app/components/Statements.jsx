@@ -5,10 +5,11 @@ import StarRatingComponent from 'react-star-rating-component';
 
 const Statements = ({ statement, id, handleStarChange }) => {
   return (
-    <div>
+    <div className="statement" >
       <Card>
         <CardHeader
           title={statement}
+          titleStyle={{color: '#757575', fontSize: 'x-large', fontFamily: 'Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif'}}
         />
         <StarRatingComponent
             name={id}

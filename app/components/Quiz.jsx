@@ -1,7 +1,7 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 import { FlatButton, RaisedButton, TextField } from 'material-ui';
-import { Card } from 'material-ui/Card';
+import { Card, CardHeader } from 'material-ui/Card';
 import Statements from './Statements.jsx';
 import Version from './Version.jsx';
 
@@ -54,34 +54,50 @@ class Quiz extends React.Component {
 
   render (){
     return (
-      <div className="quiz" >
-        <div className="support-btn" >
-          <FlatButton href="http://support.butterfly.ai" />
+      <div className="quiz-body">
+        <div className="left-menu" >
+           <div className="support-btn">
+           <FlatButton href="http://support.butterfly.ai" style={{minWidth: '45px'}} />
+           </div>
+
         </div>
-        <div className="rating-header">
-          <Version version={this.state.version} />
-        </div>
-        <div className="statements" >
-          <h2>Do you agree with the following statements:</h2>
-          {
-            statements.map(statement => (
-              <Statements statement={statement.text} id={statement.id} handleStarChange={this.handleStarChange} handleFeedbackChange={this.handleFeedbackChange} key={statement.id} />
-            ))
-          }
-        </div>
-        <div>
-          <Card>
-            <TextField
-            hintText="Please add additional feedback here."
-            multiLine={true}
-            rows={2}
-            rowsMax={4}
-            onChange={this.handleFeedbackChange}
-            />
-          </Card>
-        </div>
-        <div>
-          <RaisedButton disabled={this.state.button} primary={true} label="Submit" onClick={this.handleSubmit.bind(this)} />
+        <div className="quiz" >
+
+          <div className="rating-header">
+            <Version version={this.state.version} />
+          </div>
+          <div className="statements" >
+            <h4>Do you agree with the following statements:</h4>
+            {
+              statements.map(statement => (
+                <Statements statement={statement.text} id={statement.id} handleStarChange={this.handleStarChange} handleFeedbackChange={this.handleFeedbackChange} key={statement.id} />
+              ))
+            }
+            <hr />
+          </div>
+          <div className="feedback" >
+            <Card
+              style={{backgroundColor: '#1b828e'}}>
+              <CardHeader
+                title="Anything to add?"
+                titleStyle={{color: '#fff', fontSize: 'x-large', fontFamily: 'Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif'}}
+              />
+              <div className="circle">
+              Extra Feedback Helps
+              </div>
+
+              <TextField
+              hintText="Please add additional feedback here."
+              multiLine={true}
+              rows={2}
+              rowsMax={4}
+              onChange={this.handleFeedbackChange}
+              />
+            </Card>
+          </div>
+          <div>
+            <RaisedButton disabled={this.state.button} primary={true} label="Submit" onClick={this.handleSubmit.bind(this)} />
+          </div>
         </div>
       </div>
     );
