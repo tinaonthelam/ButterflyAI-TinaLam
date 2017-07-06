@@ -25,13 +25,6 @@ class Quiz extends React.Component {
     this.setState({version: this.props.location.query.v});
   }
 
-  // componentWillUpdate(nextProps) {
-  //   console.log('hello in here', nextProps, this.state)
-  //   if (nextProps.statements !== this.state.statements) {
-  //     this.setState({statements: this.props.statements});
-  //   }
-  // }
-
   componentDidMount() {
     axios.get('/api/statements')
       .then(res => {

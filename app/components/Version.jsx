@@ -76,5 +76,3 @@ class Version extends React.Component {
 }
 
 export default Version;
-
-
