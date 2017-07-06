@@ -1,0 +1,20 @@
+.support-btn {
+  background-image: url("./EmailIcon.png");
+  background-repeat: no-repeat;
+}
+
+#submit-btn {
+  margin-top: 2%;
+}
+
+#submit-page {
+  margin-top: 30%;
+}
+
+.version {
+  font-family: Arial, Helvetica, sans-serif
+}
+
+.statements {
+  font-family: Arial, Helvetica, sans-serif
+}
