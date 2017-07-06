@@ -4,27 +4,16 @@ import { FlatButton, RaisedButton, TextField } from 'material-ui';
 import { Card, CardHeader } from 'material-ui/Card';
 import Statements from './Statements.jsx';
 import Version from './Version.jsx';
-
-const statements = [
-  {id: 'statement1',
-    text: 'My direct manager gives me necessary support and clear objectives.'},
-  {id: 'statement2',
-  text: 'I feel like I have a healthy work/life balance.' },
-  {id: 'statement3', text: 'I feel comfortable working and interacting with the colleagues on my team.'},
-  {id: 'statement4', text: 'I am satisfied with my roles and responsibilities.'},
-  {id: 'statement5', text: 'I like my work environment, and I believe it helps me perform at my best.'}];
+import { fetchStatements } from '../reducers/reducer.js';
+import axios from 'axios';
 
 class Quiz extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       version: 0,
-      statement1: 0,
-      statement2: 0,
-      statement3: 0,
-      statement4: 0,
-      statement5: 0,
       feedback: '',
+      statements: [],
       button: true
     };
     this.handleStarChange = this.handleStarChange.bind(this);
@@ -34,6 +23,21 @@ class Quiz extends React.Component {
 
   componentWillMount() {
     this.setState({version: this.props.location.query.v});
+  }
+
+  // componentWillUpdate(nextProps) {
+  //   console.log('hello in here', nextProps, this.state)
+  //   if (nextProps.statements !== this.state.statements) {
+  //     this.setState({statements: this.props.statements});
+  //   }
+  // }
+
+  componentDidMount() {
+    axios.get('/api/statements')
+      .then(res => {
+        console.log('res data', res.data)
+        this.setState({ statements: res.data });
+      });
   }
 
   handleStarChange (nextVal, prevVal, name) {
@@ -53,6 +57,7 @@ class Quiz extends React.Component {
   }
 
   render (){
+    console.log(this.state)
     return (
       <div className="quiz-body">
         <div className="left-menu" >
@@ -69,7 +74,7 @@ class Quiz extends React.Component {
           <div className="statements" >
             <h4>Do you agree with the following statements:</h4>
             {
-              statements.map(statement => (
+              this.state.statements && this.state.statements.map(statement => (
                 <Statements statement={statement.text} id={statement.id} handleStarChange={this.handleStarChange} handleFeedbackChange={this.handleFeedbackChange} key={statement.id} />
               ))
             }
@@ -104,4 +109,22 @@ class Quiz extends React.Component {
   }
 }
 
-export default Quiz;
+/* ----- CONTAINER ----- */
+
+import {connect} from 'react-redux';
+
+const mapStateToProps = (state) => {
+  return {
+    statements: state.statements
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchStatements: () => {
+      dispatch(fetchStatements());
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Quiz);

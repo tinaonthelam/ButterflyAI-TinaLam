@@ -8,16 +8,11 @@ import App from './components/App.jsx';
 import Quiz from './components/Quiz.jsx';
 import Submit from './components/Submit.jsx';
 import NotFound from './components/NotFound.jsx';
-import { fetchStatements } from './reducers/reducer.js';
-
-const onQuizEnter = () => {
-  store.dispatch(fetchStatements() );
-}
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={ browserHistory }>
-      <Route path="/" component={App} onEnter={onQuizEnter} >
+      <Route path="/" component={App} >
         <IndexRedirect to="/quiz" />
         <Route path="/quiz" component={Quiz} />
         <Route path="/quiz/?v=:version" component={Quiz} />

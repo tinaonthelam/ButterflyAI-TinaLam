@@ -1,3 +1,6 @@
+//initially wanted to use the redux store as the single source of truth but realized it wasn't really necessary since the only data being fetched / rendered were the statements
+//caused some asynchronous issues.
+
 import axios from 'axios';
 
 const FETCH    = 'FETCH_STATEMENTS';
