@@ -43,15 +43,15 @@ class Version extends React.Component {
   getMood () {
     switch (this.props.version) {
     case '1':
-      return <VeryUnhappy style={{color: '#F45D6F'}} />;
+      return <VeryUnhappy style={{color: '#F45D6F', height: '100px', width: '100px'}} />;
     case '2':
-      return <Unhappy style={{color: '#F98371'}} />;
+      return <Unhappy style={{color: '#F98371', height: '100px', width: '100px'}} />;
     case '3':
-      return <Neutral style={{color: '#FFA76C'}} />;
+      return <Neutral style={{color: '#FFA76C', height: '100px', width: '100px'}} />;
     case '4':
-      return <Happy style={{color: '#AEEA7E'}} />;
+      return <Happy style={{color: '#AEEA7E', height: '100px', width: '100px'}} />;
     case '5':
-      return <VeryHappy style={{color: '#34EB7E'}} />;
+      return <VeryHappy style={{color: '#34EB7E', height: '100px', width: '100px'}} />;
     default:
       return <div />;
     }
@@ -61,13 +61,18 @@ class Version extends React.Component {
     const moodText = moods[this.props.version];
     return (
       <div className="version" >
-        <h2> {moodText} Thanks for the feedback! </h2>
-        {this.getMood()}
+        <div>
+          {this.getMood()}
+        </div>
+        <div className="version-text">
+          <h4> {moodText} Thanks for the feedback! </h4>
+          <div className="version-text-note" >
+            Your answers will <strong>always remain anonymous</strong>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
 export default Version;
-
-
